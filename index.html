@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.K.A HOUSE CHORE APP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f0f4f8;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80') no-repeat center center/cover;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 20, 30, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: rgba(0, 10, 20, 0.85);
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            cursor: pointer;
+        }
+        .logo i {
+            color: #ffd700;
+            margin-right: 10px;
+        }
+        .logo span {
+            color: #ffd700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: #f0f8ff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            transition: 0.25s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .nav-links a i {
+            color: #ffd700;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: #ffd700;
+            color: #fff5d6;
+            transform: scale(1.03);
+        }
+        .nav-links .active-link {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 950px;
+            border-radius: 40px 20px 40px 20px;
+            padding: 2.5rem 2.8rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 215, 0, 0.25);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .card h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0b2b3b;
+            border-left: 8px solid #ffd700;
+            padding-left: 1.2rem;
+            margin-bottom: 0.2rem;
+        }
+        .card .sub {
+            color: #1e4a5f;
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .card .sub i {
+            color: #b8860b;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #12313f;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        .form-group label i {
+            width: 24px;
+            color: #c78a1a;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #d9e2e8;
+            border-radius: 40px;
+            font-size: 1rem;
+            background: white;
+            transition: 0.2s;
+            outline: none;
+        }
+        .form-control:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2);
+        }
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        .password-wrapper input {
+            padding-right: 50px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .row-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(145deg, #ffd700, #f0a500);
+            border: none;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0a1f2b;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 25px -5px rgba(180, 120, 20, 0.5);
+            transition: 0.25s;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            cursor: pointer;
+        }
+        .btn-primary i {
+            font-size: 1.6rem;
+            color: #1f3d4e;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(145deg, #ffe033, #f5b800);
+            transform: scale(1.02);
+            box-shadow: 0 14px 32px -8px #b47d2b;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 14px 24px;
+            background: rgba(0, 10, 20, 0.75);
+            border: 2px solid #ffd700;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffd700;
+            letter-spacing: 1px;
+            transition: 0.25s;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.15);
+            transform: scale(1.02);
+        }
+
+        .btn-danger {
+            background: linear-gradient(145deg, #ff6b6b, #dc3545);
+            border: none;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(145deg, #ff7a7a, #e03a4a);
+        }
+
+        .btn-success {
+            background: linear-gradient(145deg, #28a745, #218838);
+            border: none;
+        }
+        .btn-success:hover {
+            background: linear-gradient(145deg, #34ce57, #28a745);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            width: auto;
+            margin-top: 0;
+        }
+
+        .alert {
+            padding: 12px 20px;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+            display: none;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            display: block;
+        }
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+            display: block;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .dashboard-section {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1.5rem;
+            border-radius: 24px;
+            margin-top: 1.2rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        .dashboard-section h3 {
+            color: #0b2b3b;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.9rem 1rem;
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 0.8rem;
+            border-left: 5px solid #ffd700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: 0.2s;
+            flex-wrap: wrap;
+        }
+        .task-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .task-item .task-text {
+            font-weight: 500;
+            color: #12313f;
+            flex: 1;
+            min-width: 150px;
+        }
+        .task-item .task-meta {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .task-item .task-status {
+            font-size: 0.85rem;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-overdue {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-resolved {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-unresolved {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .task-actions button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 30px;
+            transition: 0.2s;
+        }
+        .task-actions .complete-btn {
+            background: #28a745;
+            color: white;
+        }
+        .task-actions .complete-btn:hover {
+            background: #218838;
+        }
+        .task-actions .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+        .task-actions .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .member-btn {
+            padding: 12px 18px;
+            border: 2px solid #d9e2e8;
+            border-radius: 40px;
+            background: white;
+            font-weight: 600;
+            color: #12313f;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        .member-btn:hover {
+            border-color: #ffd700;
+            background: #fffdf0;
+            transform: scale(1.03);
+        }
+        .member-btn.active-member {
+            border-color: #ffd700;
+            background: #ffd700;
+            color: #0a1f2b;
+        }
+        .member-btn .member-stats {
+            font-size: 0.7rem;
+            background: #e9ecef;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .complain-box {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 20px;
+            border: 1px solid #e9ecef;
+        }
+        .complain-box textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d9e2e8;
+            border-radius: 16px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+        .complain-box textarea:focus {
+            border-color: #ffd700;
+            outline: none;
+        }
+
+        .complain-list {
+            margin-top: 1rem;
+        }
+        .complain-item {
+            padding: 0.8rem 1rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
+            border-left: 4px solid #ff6b6b;
+        }
+        .complain-item .complain-meta {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            gap: 15px;
+            margin-top: 4px;
+            flex-wrap: wrap;
+        }
+
+        .proof-upload {
+            margin: 0.5rem 0;
+        }
+        .proof-upload img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            border: 2px solid #d9e2e8;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .proof-upload img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .proof-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff3cd;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #856404;
+        }
+        .points-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #d1ecf1;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            color: #0c5460;
+        }
+
+        .timer {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #dc3545;
+            padding: 4px 12px;
+            background: #f8d7da;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .timer.urgent {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .penalty-badge {
+            background: #dc3545;
+            color: white;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #333;
+            background: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: #f8d7da;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 1rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid #ffd700;
+            align-items: center;
+        }
+        .leaderboard-item .rank {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #ffd700;
+            min-width: 40px;
+        }
+        .leaderboard-item .name {
+            flex: 1;
+            font-weight: 600;
+        }
+        .leaderboard-item .points {
+            font-weight: 700;
+            color: #28a745;
+        }
+        .leaderboard-item .streak {
+            color: #856404;
+            margin-left: 10px;
+        }
+
+        .footer-note {
+            text-align: center;
+            padding: 0.8rem;
+            color: rgba(255,255,240,0.7);
+            font-size: 0.8rem;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            border-top: 1px solid rgba(255,215,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1rem 1.5rem;
+            }
+            .nav-links {
+                gap: 0.6rem;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+            .card {
+                padding: 1.8rem 1.2rem;
+                max-height: 95vh;
+            }
+            .row-2col, .row-3col {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+            }
+            .member-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero" id="app">
+        <nav class="navbar">
+            <div class="logo" onclick="showPage('home')">
+                <i class="fas fa-home"></i> <span id="appNameDisplay">A.K.A HOUSE CHORE APP</span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a onclick="showPage('home')" id="navHome"><i class="fas fa-home"></i> Home</a>
+                <a onclick="showPage('dashboard')" id="navDashboard" class="hidden"><i class="fas fa-tasks"></i> Dashboard</a>
+                <a onclick="showPage('fatherPanel')" id="navFather" class="hidden"><i class="fas fa-user-tie"></i> Father Panel</a>
+                <a onclick="showPage('complaints')" id="navComplaints" class="hidden"><i class="fas fa-comment-dots"></i> Complaints</a>
+                <a onclick="showPage('profile')" id="navProfile" class="hidden"><i class="fas fa-user-cog"></i> Profile</a>
+                <a onclick="showPage('leaderboard')" id="navLeaderboard" class="hidden"><i class="fas fa-trophy"></i> Leaderboard</a>
+                <a onclick="logout()" id="navLogout" class="hidden"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+
+        <div class="main-wrapper">
+            <div class="card" id="mainContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i class="fas fa-home"></i> <span id="footerAppName">A.K.A HOUSE CHORE APP</span> · 2026
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Proof Image">
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  DATA LAYER
+        // ============================================================
+        const STORAGE_KEY = 'aka_house_chore_data';
+
+        function getAppData() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
+            } catch {
+                return null;
+            }
+        }
+
+        function saveAppData(data) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        function getDefaultData() {
+            return {
+                appName: 'A.K.A HOUSE CHORE APP',
+                father: {
+                    name: 'Father',
+                    password: 'father123',
+                    email: 'father@example.com'
+                },
+                members: [],
+                complaints: [],
+                familyPassword: 'family2026'
+            };
+        }
+
+        let appData = getAppData();
+        if (!appData) {
+            appData = getDefaultData();
+            saveAppData(appData);
+        }
+
+        let currentUser = null;
+        let timerIntervals = {};
+
+        // Update app name display
+        function updateAppName() {
+            const name = appData.appName || 'A.K.A HOUSE CHORE APP';
+            document.getElementById('appNameDisplay').textContent = name;
+            document.getElementById('footerAppName').textContent = name;
+        }
+        updateAppName();
+
+        // ============================================================
+        //  RENDER ENGINE
+        // ============================================================
+        function showPage(page) {
+            const container = document.getElementById('mainContent');
+            const isLoggedIn = currentUser !== null;
+            const isFather = isLoggedIn && currentUser.role === 'father';
+
+            document.getElementById('navDashboard').classList.toggle('hidden', !isLoggedIn);
+            document.getElementById('navFather').classList.toggle('hidden', !isFather);
+            document.getElementById('navComplaints').classList.toggle('hidden', !isLoggedIn);
+            document.getElementById('navProfile').classList.toggle('hidden', !isLoggedIn);
+            document.getElementById('navLeaderboard').classList.toggle('hidden', !isLoggedIn);
+            document.getElementById('navLogout').classList.toggle('hidden', !isLoggedIn);
+
+            document.querySelectorAll('.nav-links a').forEach(el => el.classList.remove('active-link'));
+            const navMap = {
+                'home': 'navHome',
+                'dashboard': 'navDashboard',
+                'fatherPanel': 'navFather',
+                'complaints': 'navComplaints',
+                'profile': 'navProfile',
+                'leaderboard': 'navLeaderboard'
+            };
+            if (navMap[page]) {
+                document.getElementById(navMap[page])?.classList.add('active-link');
+            }
+
+            // Clear timers
+            Object.values(timerIntervals).forEach(clearInterval);
+            timerIntervals = {};
+
+            switch(page) {
+                case 'home': renderHome(container, isLoggedIn); break;
+                case 'dashboard': if (isLoggedIn) renderDashboard(container); else renderHome(container, false); break;
+                case 'fatherPanel': if (isFather) renderFatherPanel(container); else renderHome(container, false); break;
+                case 'complaints': if (isLoggedIn) renderComplaints(container); else renderHome(container, false); break;
+                case 'profile': if (isLoggedIn) renderProfile(container); else renderHome(container, false); break;
+                case 'leaderboard': if (isLoggedIn) renderLeaderboard(container); else renderHome(container, false); break;
+                default: renderHome(container, isLoggedIn);
+            }
+        }
+
+        // ============================================================
+        //  HOME / LOGIN
+        // ============================================================
+        function renderHome(container, isLoggedIn) {
+            if (isLoggedIn) {
+                container.innerHTML = `
+                    <h2><i class="fas fa-home" style="color: #ffd700;"></i> ${appData.appName}</h2>
+                    <div class="sub"><i class="fas fa-user"></i> Welcome, ${currentUser.role === 'father' ? 'Father' : currentUser.memberName}</div>
+                    <div style="text-align:center; padding:1rem 0;">
+                        <i class="fas fa-check-circle" style="font-size:4rem; color:#28a745;"></i>
+                        <p style="margin-top:1rem; font-size:1.2rem; color:#12313f;">You are logged in as <strong>${currentUser.role === 'father' ? 'Father' : currentUser.memberName}</strong></p>
+                        <div style="margin-top:1.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                            <button onclick="showPage('dashboard')" class="btn-primary" style="width:auto; padding:12px 30px;">
+                                <i class="fas fa-tasks"></i> Dashboard
+                            </button>
+                            ${currentUser.role === 'father' ? `
+                                <button onclick="showPage('fatherPanel')" class="btn-secondary" style="width:auto; padding:12px 30px;">
+                                    <i class="fas fa-user-tie"></i> Father Panel
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <h2><i class="fas fa-home" style="color: #ffd700;"></i> ${appData.appName}</h2>
+                <div class="sub"><i class="fas fa-users"></i> Family Chore Manager</div>
+                <div id="loginAlert" class="alert"></div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginName"><i class="fas fa-user"></i> Your Name</label>
+                        <input type="text" id="loginName" class="form-control" placeholder="Enter your name (or 'Father')" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('loginPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+
+                <div style="margin-top:1.5rem; text-align:center; font-size:0.9rem; color:#2d5c72;">
+                    <p><i class="fas fa-info-circle"></i> Default father password: <strong>father123</strong></p>
+                    <p style="margin-top:0.3rem;">Members: Use your personal password</p>
+                    ${!appData.father.email || appData.father.email === 'father@example.com' ? `
+                        <p style="margin-top:0.5rem; color:#b8860b;"><i class="fas fa-envelope"></i> Father: Update your email in settings</p>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // ============================================================
+        //  PASSWORD TOGGLE
+        // ============================================================
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                input.type = 'password';
+                button.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+
+        // ============================================================
+        //  LOGIN HANDLER
+        // ============================================================
+        function handleLogin(event) {
+            event.preventDefault();
+            const name = document.getElementById('loginName').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const alertDiv = document.getElementById('loginAlert');
+
+            if (!name || !password) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Please enter both name and password.';
+                return;
+            }
+
+            if (name.toLowerCase() === 'father' || name.toLowerCase() === 'mr. abdulmalik') {
+                if (password === appData.father.password) {
+                    currentUser = { role: 'father' };
+                    alertDiv.className = 'alert alert-success';
+                    alertDiv.textContent = '✅ Welcome Father!';
+                    setTimeout(() => showPage('fatherPanel'), 600);
+                    return;
+                } else {
+                    alertDiv.className = 'alert alert-error';
+                    alertDiv.textContent = '❌ Incorrect father password.';
+                    return;
+                }
+            }
+
+            const member = appData.members.find(m => m.name.toLowerCase() === name.toLowerCase());
+            if (!member) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Member not found. Ask Father to register you.';
+                return;
+            }
+
+            if (password === member.password) {
+                currentUser = { role: 'member', memberId: member.id, memberName: member.name };
+                alertDiv.className = 'alert alert-success';
+                alertDiv.textContent = `✅ Welcome ${member.name}!`;
+                setTimeout(() => showPage('dashboard'), 600);
+            } else {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Incorrect password.';
+            }
+        }
+
+        // ============================================================
+        //  DASHBOARD
+        // ============================================================
+        function renderDashboard(container) {
+            const isFather = currentUser.role === 'father';
+            let member = null;
+            let memberName = '';
+
+            if (isFather) {
+                memberName = 'Father';
+            } else {
+                member = appData.members.find(m => m.id === currentUser.memberId);
+                if (!member) { logout(); return; }
+                memberName = member.name;
+                updateStreak(member);
+            }
+
+            const tasks = isFather ? getAllTasks() : member.tasks || [];
+
+            container.innerHTML = `
+                <h2><i class="fas fa-tasks" style="color: #ffd700;"></i> ${isFather ? 'Family Dashboard' : `${memberName}'s Tasks`}</h2>
+                <div class="sub">
+                    <i class="fas fa-user"></i> ${isFather ? 'Father · Overview' : `Member · ${memberName}`}
+                    ${!isFather ? `
+                        <span class="points-badge"><i class="fas fa-star"></i> ${member.points || 0} pts</span>
+                        <span class="streak-badge"><i class="fas fa-fire"></i> ${member.streak || 0} day streak</span>
+                    ` : ''}
+                    ${!isFather ? `
+                        <button onclick="showPage('leaderboard')" class="btn-secondary btn-sm">
+                            <i class="fas fa-trophy"></i> Leaderboard
+                        </button>
+                    ` : ''}
+                </div>
+
+                ${isFather ? `
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-users"></i> Family Members (${appData.members.length})</h3>
+                        <div class="member-grid">
+                            ${appData.members.map(m => `
+                                <button class="member-btn" onclick="viewMemberTasks('${m.id}')">
+                                    <span><i class="fas fa-user"></i> ${m.name}</span>
+                                    <span class="member-stats">
+                                        <i class="fas fa-star"></i> ${m.points || 0}
+                                        <i class="fas fa-fire"></i> ${m.streak || 0}
+                                    </span>
+                                </button>
+                            `).join('')}
+                            ${appData.members.length === 0 ? '<p style="color:#6c757d;">No members registered yet.</p>' : ''}
+                        </div>
+                        <button onclick="showPage('fatherPanel')" class="btn-secondary btn-sm" style="width:auto;">
+                            <i class="fas fa-user-tie"></i> Manage Members
+                        </button>
+                    </div>
+                ` : `
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-list-check"></i> Your Tasks (${tasks.filter(t => t.completed).length}/${tasks.length})</h3>
+                        ${tasks.length === 0 ? '<p style="color:#6c757d;">No tasks assigned yet.</p>' : ''}
+                        ${tasks.map(task => {
+                            const isOverdue = !task.completed && new Date(task.dueDate) < new Date();
+                            const statusClass = task.completed ? 'status-completed' : (isOverdue ? 'status-overdue' : 'status-pending');
+                            const statusText = task.completed ? '✓ Done' : (isOverdue ? '⏰ Overdue' : '⏳ Pending');
+                            const timeRemaining = getTimeRemaining(task.dueDate);
+                            return `
+                                <div class="task-item">
+                                    <div style="flex:1;">
+                                        <div class="task-text">${task.text}</div>
+                                        <div class="task-meta">
+                                            <span><i class="far fa-calendar-alt"></i> Assigned: ${new Date(task.assignedDate).toLocaleDateString()}</span>
+                                            <span><i class="far fa-clock"></i> Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
+                                            ${!task.completed ? `
+                                                <span class="timer ${timeRemaining.includes('expired') ? 'urgent' : ''}">
+                                                    <i class="fas fa-hourglass-half"></i> ${timeRemaining}
+                                                </span>
+                                            ` : ''}
+                                            ${task.completed ? `<span><i class="fas fa-check-circle" style="color:#28a745;"></i> Done: ${new Date(task.completedDate).toLocaleDateString()}</span>` : ''}
+                                            ${task.onTime !== undefined ? `<span><i class="fas fa-${task.onTime ? 'check-circle' : 'times-circle'}" style="color:${task.onTime ? '#28a745' : '#dc3545'};"></i> ${task.onTime ? 'On Time' : 'Late'}</span>` : ''}
+                                            ${task.points ? `<span><i class="fas fa-star" style="color:#ffd700;"></i> +${task.points} pts</span>` : ''}
+                                            ${task.penaltyTask ? `<span class="penalty-badge"><i class="fas fa-exclamation-triangle"></i> Penalty</span>` : ''}
+                                        </div>
+                                        ${task.proofImage ? `
+                                            <div class="proof-upload">
+                                                <img src="${task.proofImage}" alt="Proof" onclick="openImageModal('${task.proofImage}')">
+                                            </div>
+                                        ` : ''}
+                                    </div>
+                                    <div class="task-actions">
+                                        <span class="task-status ${statusClass}">${statusText}</span>
+                                        ${!task.completed ? `
+                                            <button class="complete-btn" onclick="completeTask('${member.id}', '${task.id}')" title="Mark complete">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `}
+
+                <div style="margin-top:1.5rem; display:flex; gap:1rem; flex-wrap:wrap;">
+                    ${!isFather ? `
+                        <button onclick="showPage('complaints')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-comment-dots"></i> Submit Complaint
+                        </button>
+                        <button onclick="showPage('leaderboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-trophy"></i> Leaderboard
+                        </button>
+                        <button onclick="showPage('profile')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-user-cog"></i> Profile
+                        </button>
+                    ` : `
+                        <button onclick="showPage('fatherPanel')" class="btn-primary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-user-tie"></i> Father Panel
+                        </button>
+                    `}
+                    <button onclick="showPage('complaints')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-inbox"></i> View Complaints
+                    </button>
+                </div>
+            `;
+
+            // Start timers for pending tasks
+            if (!isFather) {
+                member.tasks.forEach((task, index) => {
+                    if (!task.completed) {
+                        const timerKey = task.id;
+                        timerIntervals[timerKey] = setInterval(() => {
+                            const timeRemaining = getTimeRemaining(task.dueDate);
+                            const timerElements = document.querySelectorAll('.timer');
+                            timerElements.forEach(el => {
+                                if (el.textContent.includes(timeRemaining) || true) {
+                                    // Update timer display - we'll just re-render the whole page for simplicity
+                                    // But to avoid flicker, we'll update via a smarter method in production
+                                }
+                            });
+                        }, 60000); // Update every minute
+                    }
+                });
+            }
+        }
+
+        function getTimeRemaining(dueDate) {
+            const now = new Date();
+            const due = new Date(dueDate);
+            const diff = due - now;
+
+            if (diff <= 0) return '⏰ Time expired!';
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+            if (hours > 0) return `${hours}h ${minutes}m`;
+            return `${minutes}m`;
+        }
+
+        function getAllTasks() {
+            const all = [];
+            appData.members.forEach(m => {
+                m.tasks.forEach(task => {
+                    all.push({ ...task, memberName: m.name, memberId: m.id });
+                });
+            });
+            return all;
+        }
+
+        // ============================================================
+        //  STREAK & POINTS SYSTEM
+        // ============================================================
+        function updateStreak(member) {
+            const today = new Date().toDateString();
+            if (!member.lastTaskDate) {
+                member.streak = 0;
+                return;
+            }
+            const diffDays = Math.floor((new Date() - new Date(member.lastTaskDate)) / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) {
+                return;
+            } else if (diffDays === 1) {
+                member.streak = (member.streak || 0) + 1;
+            } else {
+                member.streak = 0;
+            }
+            saveAppData(appData);
+        }
+
+        function awardPoints(member, taskId, onTime) {
+            const points = onTime ? 10 : 5;
+            member.points = (member.points || 0) + points;
+            const task = member.tasks.find(t => t.id === taskId);
+            if (task) {
+                task.points = points;
+                task.onTime = onTime;
+            }
+            member.lastTaskDate = new Date().toISOString();
+            saveAppData(appData);
+
+            // Send email notification if member has email
+            if (member.email) {
+                sendEmailNotification(member.email, `You earned ${points} points for task: ${task.text}`);
+            }
+        }
+
+        function applyPenalty(member, taskId) {
+            const task = member.tasks.find(t => t.id === taskId);
+            if (!task || task.completed) return;
+
+            // Deduct points
+            member.points = Math.max(0, (member.points || 0) - 3);
+            task.penaltyApplied = true;
+
+            // Add penalty task
+            const penaltyTask = {
+                id: 'p_' + Date.now(),
+                text: `[PENALTY] ${task.text} (overdue)`,
+                assignedDate: new Date().toISOString(),
+                dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+                completed: false,
+                completedDate: null,
+                proofImage: null,
+                points: 0,
+                onTime: null,
+                penaltyTask: true
+            };
+            member.tasks.push(penaltyTask);
+
+            saveAppData(appData);
+            return penaltyTask;
+        }
+
+        // ============================================================
+        //  EMAIL NOTIFICATION (Simulated)
+        // ============================================================
+        function sendEmailNotification(email, message) {
+            // This is a simulation - in production, you'd use a backend API
+            console.log(`📧 Email to ${email}: ${message}`);
+            // Show a notification to the user
+            const alertDiv = document.getElementById('notificationAlert') || document.createElement('div');
+            if (!alertDiv.id) {
+                alertDiv.id = 'notificationAlert';
+                alertDiv.className = 'alert alert-info';
+                document.getElementById('mainContent').prepend(alertDiv);
+            }
+            alertDiv.textContent = `📧 Email notification sent to ${email}`;
+            alertDiv.style.display = 'block';
+            setTimeout(() => alertDiv.style.display = 'none', 3000);
+        }
+
+        // ============================================================
+        //  FATHER PANEL
+        // ============================================================
+        function renderFatherPanel(container) {
+            if (currentUser.role !== 'father') { renderHome(container, false); return; }
+
+            container.innerHTML = `
+                <h2><i class="fas fa-user-tie" style="color: #ffd700;"></i> Father Panel</h2>
+                <div class="sub"><i class="fas fa-crown"></i> Manage Family & Tasks</div>
+
+                <div id="fatherAlert" class="alert"></div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-home"></i> App Settings</h3>
+                    <form id="appNameForm" onsubmit="updateAppNameSetting(event)">
+                        <div class="row-2col">
+                            <div class="form-group">
+                                <label><i class="fas fa-home"></i> App Name</label>
+                                <input type="text" id="appNameInput" class="form-control" value="${appData.appName || 'A.K.A HOUSE CHORE APP'}" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Father's Email</label>
+                                <input type="email" id="fatherEmailInput" class="form-control" value="${appData.father.email || ''}" placeholder="father@example.com">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-secondary btn-sm" style="width:auto; padding:10px 20px;">
+                            <i class="fas fa-save"></i> Update Settings
+                        </button>
+                    </form>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-user-plus"></i> Register New Member</h3>
+                    <form id="registerMemberForm" onsubmit="registerMember(event)">
+                        <div class="row-3col">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Member Name</label>
+                                <input type="text" id="newMemberName" class="form-control" placeholder="e.g. Aisha" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-lock"></i> Set Password</label>
+                                <div class="password-wrapper">
+                                    <input type="password" id="newMemberPassword" class="form-control" placeholder="Set their password" required minlength="4">
+                                    <button type="button" class="toggle-password" onclick="togglePassword('newMemberPassword', this)">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-envelope"></i> Email (optional)</label>
+                                <input type="email" id="newMemberEmail" class="form-control" placeholder="member@example.com">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" style="padding:12px 20px; font-size:1rem;">
+                            <i class="fas fa-plus-circle"></i> Add Member
+                        </button>
+                    </form>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-list"></i> Assign Task with Deadline</h3>
+                    <form id="assignTaskForm" onsubmit="assignTask(event)">
+                        <div class="row-3col">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Select Member</label>
+                                <select id="taskMemberSelect" class="form-control" required>
+                                    <option value="">-- Choose --</option>
+                                    ${appData.members.map(m => `<option value="${m.id}">${m.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-clipboard-list"></i> Task Description</label>
+                                <input type="text" id="taskText" class="form-control" placeholder="e.g. Wash dishes" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="far fa-calendar-alt"></i> Due Date & Time</label>
+                                <input type="datetime-local" id="taskDueDate" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-secondary" style="padding:12px 20px; font-size:1rem; width:auto;">
+                            <i class="fas fa-plus"></i> Assign Task
+                        </button>
+                    </form>
+                </div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-users"></i> All Members & Tasks</h3>
+                    ${appData.members.length === 0 ? '<p style="color:#6c757d;">No members registered yet.</p>' : ''}
+                    ${appData.members.map(m => {
+                        // Check for overdue tasks and apply penalties
+                        m.tasks.forEach(task => {
+                            if (!task.completed && new Date(task.dueDate) < new Date() && !task.penaltyApplied) {
+                                applyPenalty(m, task.id);
+                            }
+                        });
+                        return `
+                            <div style="margin-bottom:1.2rem; background:white; padding:1rem; border-radius:16px; border-left:4px solid #ffd700;">
+                                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;">
+                                    <strong style="font-size:1.1rem;"><i class="fas fa-user"></i> ${m.name}</strong>
+                                    <div>
+                                        <span class="points-badge"><i class="fas fa-star"></i> ${m.points || 0} pts</span>
+                                        <span class="streak-badge"><i class="fas fa-fire"></i> ${m.streak || 0} day streak</span>
+                                        <span style="font-size:0.85rem; margin-left:10px;">${m.tasks.filter(t => t.completed).length}/${m.tasks.length} done</span>
+                                        <button onclick="removeMember('${m.id}')" class="btn-danger btn-sm" style="margin-left:10px; padding:4px 12px; border-radius:30px; border:none; color:white; cursor:pointer;">
+                                            <i class="fas fa-user-minus"></i> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                                ${m.tasks.length === 0 ? '<p style="color:#6c757d; font-size:0.9rem;">No tasks assigned.</p>' : ''}
+                                ${m.tasks.map(task => {
+                                    const isOverdue = !task.completed && new Date(task.dueDate) < new Date();
+                                    const statusClass = task.completed ? 'status-completed' : (isOverdue ? 'status-overdue' : 'status-pending');
+                                    const statusText = task.completed ? '✓ Done' : (isOverdue ? '⏰ Overdue' : '⏳ Pending');
+                                    const timeRemaining = getTimeRemaining(task.dueDate);
+                                    return `
+                                        <div class="task-item" style="margin-top:0.5rem;">
+                                            <div style="flex:1;">
+                                                <div class="task-text">${task.penaltyTask ? '⚠️ ' : ''}${task.text}</div>
+                                                <div class="task-meta">
+                                                    <span><i class="far fa-calendar-alt"></i> Due: ${new Date(task.dueDate).toLocaleDateString()}</span>
+                                                    ${!task.completed ? `<span class="timer">${timeRemaining}</span>` : ''}
+                                                    ${task.completed ? `<span><i class="fas fa-check-circle" style="color:#28a745;"></i> Done: ${new Date(task.completedDate).toLocaleDateString()}</span>` : ''}
+                                                    ${task.onTime !== undefined ? `<span><i class="fas fa-${task.onTime ? 'check-circle' : 'times-circle'}" style="color:${task.onTime ? '#28a745' : '#dc3545'};"></i> ${task.onTime ? 'On Time' : 'Late'}</span>` : ''}
+                                                    ${task.points ? `<span><i class="fas fa-star" style="color:#ffd700;"></i> +${task.points} pts</span>` : ''}
+                                                    ${task.penaltyTask ? `<span class="penalty-badge"><i class="fas fa-exclamation-triangle"></i> Penalty Task</span>` : ''}
+                                                </div>
+                                                ${task.proofImage ? `<img src="${task.proofImage}" alt="Proof" style="max-width:60px; max-height:60px; border-radius:8px; margin-top:4px; cursor:pointer;" onclick="openImageModal('${task.proofImage}')">` : ''}
+                                            </div>
+                                            <div class="task-actions">
+                                                <span class="task-status ${statusClass}">${statusText}</span>
+                                                ${!task.completed ? `
+                                                    <button class="complete-btn" onclick="completeTask('${m.id}', '${task.id}')" title="Mark complete">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                ` : ''}
+                                                <button class="delete-btn" onclick="deleteTask('${m.id}', '${task.id}')" title="Delete task" style="font-size:0.9rem; padding:2px 12px;">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+
+                <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+                    <button onclick="showPage('dashboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                    <button onclick="showPage('leaderboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-trophy"></i> Leaderboard
+                    </button>
+                    <button onclick="showPage('complaints')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-inbox"></i> View Complaints
+                    </button>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        //  APP SETTINGS
+        // ============================================================
+        function updateAppNameSetting(event) {
+            event.preventDefault();
+            const appName = document.getElementById('appNameInput').value.trim();
+            const fatherEmail = document.getElementById('fatherEmailInput').value.trim();
+            const alertDiv = document.getElementById('fatherAlert');
+
+            if (!appName) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Please enter an app name.';
+                return;
+            }
+
+            appData.appName = appName;
+            appData.father.email = fatherEmail || 'father@example.com';
+            saveAppData(appData);
+            updateAppName();
+
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = '✅ Settings updated successfully!';
+            setTimeout(() => showPage('fatherPanel'), 800);
+        }
+
+        // ============================================================
+        //  MEMBER & TASK OPERATIONS
+        // ============================================================
+        function registerMember(event) {
+            event.preventDefault();
+            const name = document.getElementById('newMemberName').value.trim();
+            const password = document.getElementById('newMemberPassword').value.trim();
+            const email = document.getElementById('newMemberEmail').value.trim();
+            const alertDiv = document.getElementById('fatherAlert');
+
+            if (!name || !password) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Please enter name and password.';
+                return;
+            }
+            if (password.length < 4) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Password must be at least 4 characters.';
+                return;
+            }
+            if (appData.members.some(m => m.name.toLowerCase() === name.toLowerCase())) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Member already exists.';
+                return;
+            }
+
+            appData.members.push({
+                id: 'm_' + Date.now(),
+                name: name,
+                password: password,
+                email: email || '',
+                tasks: [],
+                points: 0,
+                streak: 0,
+                lastTaskDate: null
+            });
+
+            saveAppData(appData);
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = `✅ ${name} registered successfully!`;
+            document.getElementById('newMemberName').value = '';
+            document.getElementById('newMemberPassword').value = '';
+            document.getElementById('newMemberEmail').value = '';
+
+            // Send email notification
+            if (email) {
+                sendEmailNotification(email, `Welcome to ${appData.appName}! You've been registered by Father.`);
+            }
+
+            setTimeout(() => showPage('fatherPanel'), 800);
+        }
+
+        function removeMember(memberId) {
+            if (!confirm('Remove this member and all their tasks?')) return;
+            appData.members = appData.members.filter(m => m.id !== memberId);
+            saveAppData(appData);
+            showPage('fatherPanel');
+        }
+
+        function assignTask(event) {
+            event.preventDefault();
+            const memberId = document.getElementById('taskMemberSelect').value;
+            const taskText = document.getElementById('taskText').value.trim();
+            const dueDate = document.getElementById('taskDueDate').value;
+            const alertDiv = document.getElementById('fatherAlert');
+
+            if (!memberId || !taskText || !dueDate) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Please fill all fields.';
+                return;
+            }
+
+            const member = appData.members.find(m => m.id === memberId);
+            if (!member) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Member not found.';
+                return;
+            }
+
+            member.tasks.push({
+                id: 't_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                text: taskText,
+                assignedDate: new Date().toISOString(),
+                dueDate: new Date(dueDate).toISOString(),
+                completed: false,
+                completedDate: null,
+                proofImage: null,
+                points: 0,
+                onTime: null,
+                penaltyTask: false,
+                penaltyApplied: false
+            });
+
+            saveAppData(appData);
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = `✅ Task "${taskText}" assigned to ${member.name} (due: ${new Date(dueDate).toLocaleDateString()})`;
+
+            // Send email notification
+            if (member.email) {
+                sendEmailNotification(member.email, `New task assigned: "${taskText}" due on ${new Date(dueDate).toLocaleDateString()}`);
+            }
+
+            document.getElementById('taskText').value = '';
+            document.getElementById('taskDueDate').value = '';
+            setTimeout(() => showPage('fatherPanel'), 800);
+        }
+
+        function completeTask(memberId, taskId) {
+            const member = appData.members.find(m => m.id === memberId);
+            if (!member) return;
+            const task = member.tasks.find(t => t.id === taskId);
+            if (!task || task.completed) return;
+
+            // Prompt for proof image
+            const proofPrompt = confirm('Would you like to upload a photo proof? (Click OK to select an image)');
+            let proofImage = null;
+            if (proofPrompt) {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            proofImage = event.target.result;
+                            completeTaskWithProof(memberId, taskId, proofImage);
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        completeTaskWithProof(memberId, taskId, null);
+                    }
+                };
+                input.click();
+                return;
+            } else {
+                completeTaskWithProof(memberId, taskId, null);
+            }
+        }
+
+        function completeTaskWithProof(memberId, taskId, proofImage) {
+            const member = appData.members.find(m => m.id === memberId);
+            if (!member) return;
+            const task = member.tasks.find(t => t.id === taskId);
+            if (!task || task.completed) return;
+
+            task.completed = true;
+            task.completedDate = new Date().toISOString();
+            if (proofImage) task.proofImage = proofImage;
+
+            // Check if on time
+            const dueDate = new Date(task.dueDate);
+            const completedDate = new Date(task.completedDate);
+            const onTime = completedDate <= dueDate;
+            awardPoints(member, taskId, onTime);
+
+            saveAppData(appData);
+            showPage('dashboard');
+        }
+
+        function deleteTask(memberId, taskId) {
+            if (!confirm('Delete this task?')) return;
+            const member = appData.members.find(m => m.id === memberId);
+            if (!member) return;
+            member.tasks = member.tasks.filter(t => t.id !== taskId);
+            saveAppData(appData);
+            showPage('fatherPanel');
+        }
+
+        function viewMemberTasks(memberId) {
+            showPage('dashboard');
+        }
+
+        // ============================================================
+        //  IMAGE MODAL
+        // ============================================================
+        function openImageModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const img = document.getElementById('modalImage');
+            img.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        // ============================================================
+        //  COMPLAINTS
+        // ============================================================
+        function renderComplaints(container) {
+            const isFather = currentUser.role === 'father';
+            const memberName = isFather ? 'Father' : currentUser.memberName;
+
+            container.innerHTML = `
+                <h2><i class="fas fa-comment-dots" style="color: #ffd700;"></i> Complaints</h2>
+                <div class="sub"><i class="fas fa-inbox"></i> ${isFather ? 'All family complaints' : 'Submit a complaint'}</div>
+
+                <div id="complaintAlert" class="alert"></div>
+
+                ${!isFather ? `
+                    <div class="complain-box">
+                        <h4><i class="fas fa-pen"></i> Submit Complaint</h4>
+                        <form id="complaintForm" onsubmit="submitComplaint(event)">
+                            <textarea id="complaintText" placeholder="Describe your issue or complaint..." required></textarea>
+                            <button type="submit" class="btn-secondary" style="margin-top:0.8rem; padding:10px 20px; width:auto;">
+                                <i class="fas fa-paper-plane"></i> Submit Complaint
+                            </button>
+                        </form>
+                    </div>
+                ` : ''}
+
+                <div class="dashboard-section" style="margin-top:1.5rem;">
+                    <h3><i class="fas fa-list"></i> ${isFather ? 'All Complaints' : 'Your Submitted Complaints'}</h3>
+                    ${appData.complaints.length === 0 ? '<p style="color:#6c757d;">No complaints submitted yet.</p>' : ''}
+                    <div class="complain-list">
+                        ${appData.complaints
+                            .filter(c => isFather ? true : c.memberName === memberName)
+                            .map(c => `
+                                <div class="complain-item" style="${c.resolved ? 'border-left-color: #28a745;' : 'border-left-color: #ff6b6b;'}">
+                                    <div><strong>${c.memberName}</strong> <span class="status-${c.resolved ? 'resolved' : 'unresolved'}">${c.resolved ? '✅ Resolved' : '⏳ Pending'}</span></div>
+                                    <div>${c.text}</div>
+                                    ${c.resolutionNote ? `<div style="color:#28a745; margin-top:4px;"><i class="fas fa-check-circle"></i> Resolution: ${c.resolutionNote}</div>` : ''}
+                                    <div class="complain-meta">
+                                        <span><i class="far fa-clock"></i> ${c.timestamp}</span>
+                                        ${c.resolved ? `<span><i class="fas fa-check" style="color:#28a745;"></i> Resolved: ${c.resolvedDate}</span>` : ''}
+                                        ${isFather ? `
+                                            ${!c.resolved ? `
+                                                <button onclick="resolveComplaint('${c.id}')" style="background:#28a745; border:none; color:white; padding:4px 12px; border-radius:20px; cursor:pointer;">
+                                                    <i class="fas fa-check"></i> Resolve
+                                                </button>
+                                            ` : ''}
+                                            <button onclick="deleteComplaint('${c.id}')" style="background:#dc3545; border:none; color:white; padding:4px 12px; border-radius:20px; cursor:pointer;">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        ` : ''}
+                                    </div>
+                                </div>
+                            `).join('')}
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+                    <button onclick="showPage('dashboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                    ${isFather ? `
+                        <button onclick="showPage('fatherPanel')" class="btn-primary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-user-tie"></i> Father Panel
+                        </button>
+                    ` : ''}
+                    <button onclick="showPage('leaderboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-trophy"></i> Leaderboard
+                    </button>
+                </div>
+            `;
+        }
+
+        function submitComplaint(event) {
+            event.preventDefault();
+            const text = document.getElementById('complaintText').value.trim();
+            const alertDiv = document.getElementById('complaintAlert');
+
+            if (!text) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '⚠️ Please write your complaint.';
+                return;
+            }
+
+            appData.complaints.push({
+                id: 'c_' + Date.now(),
+                memberName: currentUser.memberName,
+                text: text,
+                timestamp: new Date().toLocaleString(),
+                resolved: false,
+                resolvedDate: null,
+                resolutionNote: ''
+            });
+
+            saveAppData(appData);
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = '✅ Complaint submitted successfully!';
+            document.getElementById('complaintText').value = '';
+
+            // Send email to father
+            if (appData.father.email) {
+                sendEmailNotification(appData.father.email, `New complaint from ${currentUser.memberName}: ${text}`);
+            }
+
+            setTimeout(() => showPage('complaints'), 800);
+        }
+
+        function resolveComplaint(complaintId) {
+            const note = prompt('Enter resolution note:');
+            if (note === null) return;
+            const complaint = appData.complaints.find(c => c.id === complaintId);
+            if (!complaint) return;
+            complaint.resolved = true;
+            complaint.resolvedDate = new Date().toLocaleString();
+            complaint.resolutionNote = note || 'Resolved';
+            saveAppData(appData);
+
+            // Send email to member
+            const member = appData.members.find(m => m.name === complaint.memberName);
+            if (member && member.email) {
+                sendEmailNotification(member.email, `Your complaint has been resolved: ${note || 'Resolved'}`);
+            }
+
+            showPage('complaints');
+        }
+
+        function deleteComplaint(complaintId) {
+            if (!confirm('Delete this complaint?')) return;
+            appData.complaints = appData.complaints.filter(c => c.id !== complaintId);
+            saveAppData(appData);
+            showPage('complaints');
+        }
+
+        // ============================================================
+        //  LEADERBOARD
+        // ============================================================
+        function renderLeaderboard(container) {
+            const sortedMembers = [...appData.members].sort((a, b) => (b.points || 0) - (a.points || 0));
+
+            container.innerHTML = `
+                <h2><i class="fas fa-trophy" style="color: #ffd700;"></i> Leaderboard</h2>
+                <div class="sub"><i class="fas fa-ranking-star"></i> Points & Streaks Ranking</div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-medal"></i> Top Performers</h3>
+                    ${sortedMembers.length === 0 ? '<p style="color:#6c757d;">No members yet.</p>' : ''}
+                    ${sortedMembers.map((m, index) => `
+                        <div class="leaderboard-item">
+                            <span class="rank">#${index + 1}</span>
+                            <span class="name">${m.name}</span>
+                            <span class="points"><i class="fas fa-star"></i> ${m.points || 0} pts</span>
+                            <span class="streak"><i class="fas fa-fire"></i> ${m.streak || 0} day streak</span>
+                            <span style="font-size:0.8rem; color:#6c757d;">${m.tasks.filter(t => t.completed).length}/${m.tasks.length} tasks done</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1rem;">
+                    <button onclick="showPage('dashboard')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-arrow-left"></i> Dashboard
+                    </button>
+                    ${currentUser.role === 'father' ? `
+                        <button onclick="showPage('fatherPanel')" class="btn-primary" style="flex:1; min-width:150px; padding:12px;">
+                            <i class="fas fa-user-tie"></i> Father Panel
+                        </button>
+                    ` : ''}
+                    <button onclick="showPage('complaints')" class="btn-secondary" style="flex:1; min-width:150px; padding:12px;">
+                        <i class="fas fa-comment-dots"></i> Complaints
+                    </button>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        //  PROFILE
+        // ============================================================
+        function renderProfile(container) {
+            if (currentUser.role === 'father') {
+                container.innerHTML = `
+                    <h2><i class="fas fa-user-cog" style="color: #ffd700;"></i> Profile</h2>
+                    <div class="sub"><i class="fas fa-crown"></i> Father Account</div>
+                    <div id="profileAlert" class="alert"></div>
+                    <form id="changePasswordForm" onsubmit="changeFatherPassword(event)">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email</label>
+                            <input type="email" id="fatherProfileEmail" class="form-control" value="${appData.father.email || ''}" placeholder="father@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Current Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="currentFatherPassword" class="form-control" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('currentFatherPassword', this)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="newFatherPassword" class="form-control" required minlength="4">
+                                <button type="button" class="toggle-password" onclick="togglePassword('newFatherPassword', this)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Confirm New Password</label>
+                            <div class="password-wrapper">
+                                <input type="password" id="confirmFatherPassword" class="form-control" required>
+                                <button type="button" class="toggle-password" onclick="togglePassword('confirmFatherPassword', this)">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i> Update Profile
+                        </button>
+                    </form>
+                    <div style="margin-top:1rem;">
+                        <button onclick="showPage('dashboard')" class="btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const member = appData.members.find(m => m.id === currentUser.memberId);
+            if (!member) { logout(); return; }
+
+            container.innerHTML = `
+                <h2><i class="fas fa-user-cog" style="color: #ffd700;"></i> Profile</h2>
+                <div class="sub"><i class="fas fa-user"></i> ${member.name}</div>
+                <div id="profileAlert" class="alert"></div>
+
+                <div class="dashboard-section">
+                    <h3><i class="fas fa-chart-line"></i> Your Stats</h3>
+                    <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+                        <div><strong>Points:</strong> <span class="points-badge"><i class="fas fa-star"></i> ${member.points || 0}</span></div>
+                        <div><strong>Streak:</strong> <span class="streak-badge"><i class="fas fa-fire"></i> ${member.streak || 0} days</span></div>
+                        <div><strong>Tasks Completed:</strong> ${member.tasks.filter(t => t.completed).length}/${member.tasks.length}</div>
+                        <div><strong>Email:</strong> ${member.email || 'Not set'}</div>
+                    </div>
+                </div>
+
+                <form id="changePasswordForm" onsubmit="changeMemberPassword(event, '${member.id}')">
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Current Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="currentMemberPassword" class="form-control" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('currentMemberPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> New Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="newMemberPassword" class="form-control" required minlength="4">
+                            <button type="button" class="toggle-password" onclick="togglePassword('newMemberPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-lock"></i> Confirm New Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirmMemberPassword" class="form-control" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmMemberPassword', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Update Password
+                    </button>
+                </form>
+
+                <div style="margin-top:1rem;">
+                    <button onclick="showPage('dashboard')" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </button>
+                </div>
+            `;
+        }
+
+        function changeFatherPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('fatherProfileEmail').value.trim();
+            const current = document.getElementById('currentFatherPassword').value;
+            const newPass = document.getElementById('newFatherPassword').value;
+            const confirm = document.getElementById('confirmFatherPassword').value;
+            const alertDiv = document.getElementById('profileAlert');
+
+            if (current !== appData.father.password) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Current password is incorrect.';
+                return;
+            }
+            if (newPass !== confirm) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Passwords do not match.';
+                return;
+            }
+            if (newPass.length < 4) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Password must be at least 4 characters.';
+                return;
+            }
+
+            appData.father.password = newPass;
+            appData.father.email = email || 'father@example.com';
+            saveAppData(appData);
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = '✅ Profile updated successfully!';
+            document.getElementById('currentFatherPassword').value = '';
+            document.getElementById('newFatherPassword').value = '';
+            document.getElementById('confirmFatherPassword').value = '';
+        }
+
+        function changeMemberPassword(event, memberId) {
+            event.preventDefault();
+            const member = appData.members.find(m => m.id === memberId);
+            if (!member) return;
+
+            const current = document.getElementById('currentMemberPassword').value;
+            const newPass = document.getElementById('newMemberPassword').value;
+            const confirm = document.getElementById('confirmMemberPassword').value;
+            const alertDiv = document.getElementById('profileAlert');
+
+            if (current !== member.password) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Current password is incorrect.';
+                return;
+            }
+            if (newPass !== confirm) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Passwords do not match.';
+                return;
+            }
+            if (newPass.length < 4) {
+                alertDiv.className = 'alert alert-error';
+                alertDiv.textContent = '❌ Password must be at least 4 characters.';
+                return;
+            }
+
+            member.password = newPass;
+            saveAppData(appData);
+            alertDiv.className = 'alert alert-success';
+            alertDiv.textContent = '✅ Password updated successfully!';
+            document.getElementById('currentMemberPassword').value = '';
+            document.getElementById('newMemberPassword').value = '';
+            document.getElementById('confirmMemberPassword').value = '';
+        }
+
+        // ============================================================
+        //  LOGOUT
+        // ============================================================
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                // Clear all timers
+                Object.values(timerIntervals).forEach(clearInterval);
+                timerIntervals = {};
+                currentUser = null;
+                showPage('home');
+            }
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        window.onload = function() {
+            showPage('home');
+        };
+
+        // Expose functions globally
+        window.showPage = showPage;
+        window.handleLogin = handleLogin;
+        window.togglePassword = togglePassword;
+        window.registerMember = registerMember;
+        window.removeMember = removeMember;
+        window.assignTask = assignTask;
+        window.completeTask = completeTask;
+        window.deleteTask = deleteTask;
+        window.viewMemberTasks = viewMemberTasks;
+        window.submitComplaint = submitComplaint;
+        window.deleteComplaint = deleteComplaint;
+        window.resolveComplaint = resolveComplaint;
+        window.logout = logout;
+        window.updateAppNameSetting = updateAppNameSetting;
+        window.openImageModal = openImageModal;
+        window.closeModal = closeModal;
+    </script>
+</body>
+</html>
