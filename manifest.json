@@ -1,12 +1,17 @@
 {
-  "background_color": "#ffffff",
-  "dir": "auto",
-  "display": "standalone",
   "name": "A.K.A",
-  "orientation": "any",
-  "scope": "/",
   "short_name": "A.K.A",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "lang": "en"
+  "start_url": "/my-web-app/",
+  "scope": "/my-web-app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
