@@ -1,0 +1,12 @@
+{
+  "background_color": "#ffffff",
+  "dir": "auto",
+  "display": "standalone",
+  "name": "A.K.A",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "A.K.A",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "lang": "en"
+}
